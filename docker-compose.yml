@@ -1,0 +1,9 @@
+version: '3'
+services:
+  aob:
+    # image: 'mathcovax/anotherback:latest'
+    build: ./
+    ports:
+      - 1506:80
+    volumes:
+      - ./api:/api

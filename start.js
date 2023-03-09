@@ -9,20 +9,20 @@ if(fs.readdirSync("/api").length === 0){
     execSync("npm init -y", {stdio: "ignore", cwd: "/api"});
     console.log("Install anotherback");
     execSync("npm install anotherback@" + process.env.AOB_V, {stdio: "ignore", cwd: "/api"});
-    execSync("chmod -R 777 .", {stdio: "ignore", cwd: "/api"});
+    execSync("chown -R node . && chgrp -R node .", {stdio: "ignore", cwd: "/api"});
 }
 
 if(!fs.existsSync("/api/node_modules")){
     console.log("Install all package.");
     execSync("npm install", {cwd: "/api", stdio: "ignore"});
-    execSync("chmod -R 777 /api", {stdio: "ignore"});
+    execSync("chown -R node . && chgrp -R node .", {stdio: "ignore"});
 }
 
 console.log("Starting anotherback");
 
 class child{
     static start(){
-        this.process = spawn("npx", ["aob"], {stdio: "inherit", uid: 1000, cwd: "/api", detached: true});
+        this.process = spawn("npx", ["aob"], {stdio: "inherit", uid: 1000, gid: 1000, cwd: "/api", detached: true});
         this.watcher = new Watcher("/api/node_modules").on("unlinkDir", () => child.restart());
     }
 
@@ -35,7 +35,7 @@ class child{
         this.stop();
         console.log("Starting reinstall all package");
         execSync("npm install", {stdio: "ignore", cwd: "/api"});
-        execSync("chmod -R 777 ./node_modules", {stdio: "ignore", cwd: "/api"});
+        execSync("chown -R node ./node_modules && chgrp -R node ./node_modules", {stdio: "ignore", cwd: "/api"});
         this.start();
     }
 

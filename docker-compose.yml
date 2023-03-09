@@ -1,8 +1,8 @@
 version: '3'
 services:
   aob:
-    # image: 'mathcovax/anotherback:latest'
-    build: ./
+    image: mathcovax/anotherback:1.1.5
+    # build: ./
     ports:
       - 1506:80
     volumes:

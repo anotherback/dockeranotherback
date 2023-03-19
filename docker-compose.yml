@@ -1,7 +1,7 @@
 version: '3'
 services:
   aob:
-    image: mathcovax/anotherback:1.1.5
+    image: mathcovax/anotherback:2.3.4
     # build: ./
     ports:
       - 1506:80

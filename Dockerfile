@@ -2,7 +2,7 @@ FROM node:18.13.0
 
 EXPOSE 80
 
-ENV AOB_V=1.1.5
+ENV AOB_V=2.3.4
 
 RUN mkdir /api
 RUN npm root -g
